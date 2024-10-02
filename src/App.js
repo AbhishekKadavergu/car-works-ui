@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import Dashboard from './components/User/Dashboard';
+import UserRoleRequests from './components/User/RoleRequests';
+import PrivateRoute from './components/PrivateRoute';
+import RequestRole from './components/User/RequestRole';
+import RoleRequests from './components/Admin/RoleRequests';
+import Header from './components/Header'; 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App = () => {
+    return (
+        <Router>
+            <div className="min-h-screen flex flex-col">
+                <Header />  {/* Header will now be visible on all pages */}
+                <main className="flex-grow">
+                <Routes>
+                    {/* Public Routes */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+
+                    {/* Private Routes */}
+                    <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                    <Route path="/role-requests" element={<PrivateRoute><UserRoleRequests /></PrivateRoute>} />
+                    <Route path="/request-role" element={<PrivateRoute><RequestRole /></PrivateRoute>} />
+                    <Route path="/admin-requests" element={<PrivateRoute><RoleRequests /></PrivateRoute>} />
+
+                    {/* Add other protected routes here */}
+                    <Route path="/bill-of-material" element={<PrivateRoute><div>Bill of Material Component</div></PrivateRoute>} />
+                    <Route path="/pcf" element={<PrivateRoute><div>PCF Component</div></PrivateRoute>} />
+
+                    {/* Public home route */}
+                    <Route path="/" element={<div>Home Component</div>} />
+                </Routes>
+            </main>
+        </div>
+        </Router >
+    );
+};
 
 export default App;
