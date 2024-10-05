@@ -8,6 +8,9 @@ import PrivateRoute from './components/PrivateRoute';
 import RequestRole from './components/User/RequestRole';
 import RoleRequests from './components/Admin/RoleRequests';
 import Header from './components/Header'; 
+import BOMPage from './components/User/BOMPage';
+import PCFPage from './components/User/PCFPage';
+
 
 
 const App = () => {
@@ -26,10 +29,9 @@ const App = () => {
                     <Route path="/role-requests" element={<PrivateRoute><UserRoleRequests /></PrivateRoute>} />
                     <Route path="/request-role" element={<PrivateRoute><RequestRole /></PrivateRoute>} />
                     <Route path="/admin-requests" element={<PrivateRoute><RoleRequests /></PrivateRoute>} />
-
                     {/* Add other protected routes here */}
-                    <Route path="/bill-of-material" element={<PrivateRoute><div>Bill of Material Component</div></PrivateRoute>} />
-                    <Route path="/pcf" element={<PrivateRoute><div>PCF Component</div></PrivateRoute>} />
+                    <Route path="/bom" element={<PrivateRoute><BOMPage/></PrivateRoute>} />
+                    <Route path="/pcf" element={<PrivateRoute><PCFPage/></PrivateRoute>} />
 
                     {/* Public home route */}
                     <Route path="/" element={<div>Home Component</div>} />

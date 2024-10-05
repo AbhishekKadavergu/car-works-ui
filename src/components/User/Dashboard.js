@@ -86,7 +86,7 @@ const Dashboard = () => {
                     <div className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
                         <h3 className="text-2xl font-semibold text-gray-800 mb-4">Bill of Materials (BOM)</h3>
                         <p className="text-gray-600 mb-4">Access the Bill of Materials module.</p>
-                        <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200">
+                        <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200" onClick={() => navigate('/bom')}>
                             Go to BOM
                         </button>
                     </div>
@@ -95,7 +95,7 @@ const Dashboard = () => {
                     <div className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
                         <h3 className="text-2xl font-semibold text-gray-800 mb-4">Product Carbon Footprint (PCF)</h3>
                         <p className="text-gray-600 mb-4">View and manage the Product Carbon Footprint data.</p>
-                        <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200">
+                        <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200" onClick={() => navigate('/pcf')}>
                             Go to PCF
                         </button>
                     </div>
