@@ -3,12 +3,14 @@ import { exportToCSV, exportToXLSX, exportToPDF } from '../../utils/exportUtils'
 
 const BOMPage = () => {
     const [bomData, setBOMData] = useState([]);
+  const api_url = process.env.REACT_APP_API_URL;
+
 
     useEffect(() => {
         // Fetch BOM data from API (you can replace this with your API call)
         const fetchBOMData = async () => {
             try {
-                const response = await fetch('https://car-works.onrender.com/api/car/bom-by-ds/DS-456');
+                const response = await fetch(`${api_url}/api/car/bom-by-ds/DS-456`);
                 const data = await response.json();
                 setBOMData(data?.parts);
             } catch (error) {
