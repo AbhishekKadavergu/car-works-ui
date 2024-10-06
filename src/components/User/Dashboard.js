@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 
 const Dashboard = () => {
     const [isAdmin, setIsAdmin] = useState(false); // To check if user is admin
+    const [isPcfViewer, setIsPcfViewer] = useState(false);
+    const [isBomViewer, setIsBomViewer] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const navigate = useNavigate(); // Initialize useNavigate
 
-
     useEffect(() => {
         // Fetch user roles to determine if they have an admin role
         const fetchUserRole = () => {
-            //   const token = localStorage.getItem('authToken');
             try {
-                // const response = await axios.get('http://localhost:5000/api/user/roles', {
-                //   headers: {
-                //     Authorization: `Bearer ${token}`,
-                //   },
-                // });
-
-                // const roles = response.data.roles; // Assuming the roles come in the response
-                // if (roles.includes('admin')) {
-                setIsAdmin(true);
-                // }
+                const userInfo = JSON.parse(localStorage.getItem('userInfo')); // Assuming the roles come in the response
+                console.log(userInfo)
+                if (userInfo.roles.includes('admin')) {
+                    setIsAdmin(true);
+                }
+                if (userInfo.roles.includes('pcf-viewer')) {
+                    setIsPcfViewer(true);
+                }
+                if (userInfo.roles.includes('bom-viewer')) {
+                    setIsBomViewer(true);
+                }
             } catch (err) {
                 setError('Error fetching user roles');
             } finally {
@@ -83,22 +83,22 @@ const Dashboard = () => {
                 <h2 className="text-3xl font-semibold text-gray-700 mb-4">Business Modules</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Bill of Materials (BOM) Card */}
-                    <div className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
+                    {isBomViewer && (<div className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
                         <h3 className="text-2xl font-semibold text-gray-800 mb-4">Bill of Materials (BOM)</h3>
                         <p className="text-gray-600 mb-4">Access the Bill of Materials module.</p>
-                        <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200">
+                        <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200" onClick={() => navigate('/bom')}>
                             Go to BOM
                         </button>
-                    </div>
+                    </div>)}
 
                     {/* Product Carbon Footprint (PCF) Card */}
-                    <div className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
+                    {isPcfViewer && (<div className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
                         <h3 className="text-2xl font-semibold text-gray-800 mb-4">Product Carbon Footprint (PCF)</h3>
                         <p className="text-gray-600 mb-4">View and manage the Product Carbon Footprint data.</p>
-                        <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200">
+                        <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200" onClick={() => navigate('/pcf')}>
                             Go to PCF
                         </button>
-                    </div>
+                    </div>)}
                 </div>
             </div>
         </div>

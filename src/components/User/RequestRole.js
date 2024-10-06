@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import UserRoleRequests from './RoleRequests'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
@@ -10,7 +10,6 @@ const RoleRequest = () => {
   const [selectedRole, setSelectedRole] = useState('');
   const [comment, setComment] = useState(''); // New state for the comment
   const [loading, setLoading] = useState(false);
-  const api_url = process.env.REACT_APP_API_URL;
 
 
   useEffect(() => {
@@ -18,13 +17,8 @@ const RoleRequest = () => {
   }, []);
   // Fetch roles from the API
   const fetchRoles = async () => {
-    const token = localStorage.getItem('authToken'); // Get token from localStorage
     try {
-      const response = await axios.get(`${api_url}/api/roles`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include token in Authorization header
-        },
-      });
+      const response = await axiosInstance.get(`/api/roles`);
       setRoles(response.data);
     } catch (err) {
       toast.error('Failed to fetch roles', {
@@ -45,11 +39,7 @@ const RoleRequest = () => {
       };
 
       // Make POST request to the backend with the token in the Authorization header
-      const response = await axios.post(`${api_url}/api/request/role-request`, requestBody, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Pass the token for authentication
-        },
-      });
+      const response = await axiosInstance.post(`/api/request/role-request`, requestBody);
 
       // Show success toast message
       toast.success(response.data.message, {

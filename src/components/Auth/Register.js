@@ -1,6 +1,7 @@
 // src/components/Auth/Register.js
 import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Bounce, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import styles
 import { ToastContainer } from 'react-toastify';
@@ -32,25 +33,17 @@ const Register = () => {
         setError(null); // Reset error message
 
         try {
-            const response = await fetch(`${api_url}/api/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, username, email, password, country, mobile }),
-            });
+            const response = await axios.post(`${api_url}/api/auth/register`,
+                { name, username, email, password, country, mobile });
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Registration failed');
+            if (response.status !== 201) {
+                throw new Error(response.message || 'Registration failed');
             }
 
             // Handle successful registration (e.g., redirect to login page)
-            console.log('Registration successful:', data);
             toast.success(`Registration successful! you will be redirected to login page.`);
             setTimeout(() => {
-                navigate('/login');                
+                navigate('/login');
             }, 3000);
             // Redirect the user or show a success message here
         } catch (err) {
@@ -114,15 +107,15 @@ const Register = () => {
                     className="border border-gray-300 p-2 mb-4 w-full"
                     required
                 />
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     className={`bg-blue-500 text-white p-2 rounded w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     disabled={loading}
                 >
                     {loading ? 'Registering...' : 'Register'}
                 </button>
             </form>
-            <ToastContainer position='bottom-right' transition={Bounce}/>
+            <ToastContainer position='bottom-right' transition={Bounce} />
         </div>
     );
 };

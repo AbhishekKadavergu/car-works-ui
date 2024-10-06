@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 
 const UserRoleRequests = () => {
   const [roleRequests, setRoleRequests] = useState([]);
@@ -15,14 +15,9 @@ const UserRoleRequests = () => {
   const fetchRoleRequests = async () => {
     setLoading(true);
     setError('');
-    const token = localStorage.getItem('authToken'); // Get token from localStorage
 
     try {
-      const response = await axios.get(`${api_url}/api/request/role-requests`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include token in Authorization header
-        },
-      });
+      const response = await axiosInstance.get(`/api/request/role-requests`);
       setRoleRequests(response.data);
     } catch (err) {
       setError('Failed to fetch role requests');
