@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import styles
 import { ToastContainer } from 'react-toastify';
@@ -9,9 +9,6 @@ const RoleRequests = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
-    const api_url = process.env.REACT_APP_API_URL;
-
-
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -20,11 +17,7 @@ const RoleRequests = () => {
             setMessage('');
 
             try {
-                const response = await axios.get(`${api_url}/api/admin/requests`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-                    },
-                });
+                const response = await axiosInstance.get(`/api/admin/requests`);
 
                 if (response.data.success) {
                     setRequests(response.data.data || []);
@@ -48,18 +41,14 @@ const RoleRequests = () => {
         try {
             let url;
             if (action === 'approve') {
-                url = `${api_url}/api/admin/approve/${id}`;
+                url = `/api/admin/approve/${id}`;
             } else if (action === 'reject') {
-                url = `${api_url}/api/admin/reject/${id}`;
+                url = `/api/admin/reject/${id}`;
             } else if (action === 'revoke') {
-                url = `${api_url}/api/admin/revoke/${id}`;
+                url = `/api/admin/revoke/${id}`;
             }
 
-            await axios.post(url, {}, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-                },
-            });
+            await axiosInstance.post(url, {});
 
             setRequests(
                 requests.map((req) =>
