@@ -37,7 +37,7 @@ Before setting up and running this project, ensure you have the following instal
 
 1. **Clone the repository**:
    ```bash
-   git clone <https://github.com/AbhishekKadavergu/car-works-ui.git>
+   git clone https://github.com/AbhishekKadavergu/car-works-ui.git
    cd carworks-frontend
    ```
 
