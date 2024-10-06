@@ -1,70 +1,131 @@
-# Getting Started with Create React App
+# CarWorks Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend part of the **CarWorks** project, built with **React**. It provides a user interface to interact with car-related data, user roles, and the backend services of CarWorks. The frontend also integrates role-based access control (RBAC) and visual components for displaying car and user data.
 
-## Available Scripts
+## Table of Contents
+- [Technologies Used](#technologies-used)
+- [Prerequisites](#prerequisites)
+- [Setup Instructions](#setup-instructions)
+- [Running the Application](#running-the-application)
+- [Building the Application](#building-the-application)
+- [Scripts](#scripts)
+- [Environment Variables](#environment-variables)
+- [Tailwind CSS Integration](#tailwind-css-integration)
+- [Project Structure](#project-structure)
+- [License](#license)
 
-In the project directory, you can run:
+## Technologies Used
+- React (v18+)
+- Redux Toolkit (for state management)
+- React Router (for routing)
+- Axios (for API requests)
+- Tailwind CSS (for styling)
+- React Toastify (for notifications)
+- jsPDF & jsPDF-AutoTable (for PDF generation)
+- XLSX (for Excel data handling)
+- React Select (for dropdowns)
+- React Spinners (for loading spinners)
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Before setting up and running this project, ensure you have the following installed on your local machine:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Node.js** (v16+)
+- **npm** (or **yarn** if preferred)
 
-### `npm test`
+## Setup Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repository**:
+   ```bash
+   git clone <https://github.com/AbhishekKadavergu/car-works-ui.git>
+   cd carworks-frontend
+   ```
 
-### `npm run build`
+2. **Install dependencies**:
+   Run the following command to install all project dependencies:
+   ```bash
+   npm install
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Configure environment variables**:
+   - Create a `.env` file in the root of the project.
+   - Add the required environment variables (see [Environment Variables](#environment-variables) below).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Running the Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **For development**:
+   Run the following command to start the development server:
+   ```bash
+   npm start
+   ```
 
-### `npm run eject`
+   This will start the React development server at `http://localhost:3000`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. **For production**:
+   First, build the project:
+   ```bash
+   npm run build
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   Then serve the files using any static server like `serve`, or integrate it into a backend.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Building the Application
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To build the application for production, use:
 
-## Learn More
+```bash
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The build folder will contain the optimized, minified files that are ready to be deployed.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Scripts
 
-### Code Splitting
+Here are the main scripts available:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **`npm start`**: Starts the development server.
+- **`npm run build`**: Builds the application for production.
+- **`npm run test`**: Runs the tests.
+- **`npm run eject`**: Ejects the project configuration. Use with caution.
 
-### Analyzing the Bundle Size
+## Environment Variables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+To configure the frontend, you may need to add certain environment variables to a `.env` file. These variables can include API endpoints or other project-specific configurations.
 
-### Making a Progressive Web App
+Example `.env` file:
+```bash
+REACT_APP_API_URL=<your-backend-api-url>
+REACT_APP_ENV=development
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Tailwind CSS Integration
 
-### Advanced Configuration
+This project uses **Tailwind CSS** for styling. All styles are managed through utility classes provided by Tailwind. To modify or add styles, you can directly use Tailwind utility classes in the components.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+For custom configurations, you can modify the `tailwind.config.js` file or add custom styles to the `src/index.css` file.
 
-### Deployment
+## Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Here’s an outline of the project structure:
 
-### `npm run build` fails to minify
+```
+carworks-frontend/
+│
+├── public/                # Static files like index.html
+├── src/
+│   ├── assets/            # Static assets like images or fonts
+│   ├── components/        # Reusable UI components
+│   ├── pages/             # Page-level components
+│   ├── redux/             # Redux state management setup
+│   ├── routes/            # React Router setup for navigating between pages
+│   ├── services/          # API services (e.g., Axios calls)
+│   ├── styles/            # Tailwind CSS and other custom styles
+│   └── App.js             # Main application component
+│   └── index.js           # Entry point for the application
+├── package.json           # Project metadata and dependencies
+└── README.md              # Documentation for the project
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+
+This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for more details.
