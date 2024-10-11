@@ -6,10 +6,10 @@ const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+     useEffect(() => {
     const token = localStorage.getItem('authToken');
     setIsAuthenticated(!!token);
-  }, []);
+     }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
