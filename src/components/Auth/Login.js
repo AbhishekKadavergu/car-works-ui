@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';  // Import spinner component
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../utils/userSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +12,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
   const api_url = process.env.REACT_APP_API_URL;
+  const dispatch = useDispatch();
 
   const isAuthenticated = !!localStorage.getItem('authToken');
 
@@ -18,7 +21,7 @@ const Login = () => {
   }
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+     e.preventDefault();
     setLoading(true);  // Start the loader
     setError('');  // Clear any previous error
 
@@ -31,6 +34,7 @@ const Login = () => {
 
       // Optionally store user info
       localStorage.setItem('userInfo', JSON.stringify(user));
+      dispatch(addUser(user));
 
       // Navigate to dashboard or home
       navigate('/dashboard');
