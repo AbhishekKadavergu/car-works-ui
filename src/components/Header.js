@@ -1,18 +1,23 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUser } from '../utils/userSlice';
 
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((store) =>store.user);
 
-  useEffect(() => {
+     useEffect(() => {
     const token = localStorage.getItem('authToken');
     setIsAuthenticated(!!token);
-  }, []);
+     }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
+    dispatch(removeUser());
     setIsAuthenticated(false);
     navigate('/login');
   };
@@ -24,7 +29,7 @@ const Header = () => {
           Car Works
         </Link>
         <nav className="flex space-x-4">
-          {isAuthenticated ? (
+          {user ? (
             <button 
               onClick={handleLogout} 
               className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition">
@@ -39,7 +44,7 @@ const Header = () => {
               </Link>
               <Link 
                 to="/register" 
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition">
+                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition">
                 Signup
               </Link>
             </>

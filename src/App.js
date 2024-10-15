@@ -10,11 +10,14 @@ import RoleRequests from './components/Admin/RoleRequests';
 import Header from './components/Header'; 
 import BOMPage from './components/User/BOMPage';
 import PCFPage from './components/User/PCFPage';
+import { Provider } from 'react-redux';
+import appStore from './utils/appStore';
 
 
 
 const App = () => {
     return (
+        <Provider store={appStore}>
         <Router>
             <div className="min-h-screen flex flex-col">
                 <Header />  {/* Header will now be visible on all pages */}
@@ -39,6 +42,7 @@ const App = () => {
             </main>
         </div>
         </Router >
+        </Provider>
     );
 };
 
