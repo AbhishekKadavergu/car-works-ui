@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Dashboard = () => {
     const [isAdmin, setIsAdmin] = useState(false); // To check if user is admin
-    const [isPcfViewer, setIsPcfViewer] = useState(false);
+    const [isPcf, setIsPcf] = useState(false);
     const [isBomViewer, setIsBomViewer] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -19,8 +19,8 @@ const Dashboard = () => {
                 if (userInfo.roles.includes('admin')) {
                     setIsAdmin(true);
                 }
-                if (userInfo.roles.includes('pcf-viewer')) {
-                    setIsPcfViewer(true);
+                if (userInfo.roles.includes('pcf')) {
+                    setIsPcf(true);
                 }
                 if (userInfo.roles.includes('bom-viewer')) {
                     setIsBomViewer(true);
@@ -92,7 +92,7 @@ const Dashboard = () => {
                     </div>)}
 
                     {/* Product Carbon Footprint (PCF) Card */}
-                    {isPcfViewer && (<div className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
+                    {isPcf && (<div className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105">
                         <h3 className="text-2xl font-semibold text-gray-800 mb-4">Product Carbon Footprint (PCF)</h3>
                         <p className="text-gray-600 mb-4">View and manage the Product Carbon Footprint data.</p>
                         <button className="bg-green-600 text-white px-4 py-2 mt-4 rounded-lg hover:bg-green-700 transition-colors duration-200" onClick={() => navigate('/pcf')}>

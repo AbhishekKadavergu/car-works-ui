@@ -19,8 +19,9 @@ const RoleRequests = () => {
             try {
                 const response = await axiosInstance.get(`/api/admin/requests`);
 
+                // Ensure you're accessing the correct field containing the requests
                 if (response.data.success) {
-                    setRequests(response.data.data || []);
+                    setRequests(response.data.data || []); // Use response.data.data instead of just response.data
                     setMessage(response.data.message);
                 } else {
                     setError(response.data.message);
@@ -82,22 +83,22 @@ const RoleRequests = () => {
         return (
             <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4 rounded" role="alert">
                 <p className="font-bold">Info</p>
-                <p>{message}</p>
+                <p>{message || 'No requests available'}</p>
             </div>
         );
     }
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h2 className="text-3xl mb-6 text-gray-700 font-semibold">Role Requests</h2>
+        <div className="p-6 bg-white min-h-screen">
+            <h2 className="text-3xl mb-6 text-white font-semibold">Role Requests</h2>
             <div className="grid gap-6">
                 {requests.map((req) => (
-                    <div key={req._id} className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                    <div key={req._id} className="p-6  rounded-lg shadow-md hover:shadow-lg transition-shadow">
                         <p className="text-gray-800 mb-2">
                             <strong>User:</strong> {req.user.name}
                         </p>
                         <p className="text-gray-800 mb-2">
-                            <strong>Role:</strong> {req.role.name}
+                            <strong>Role:</strong> {req.role ? req.role.name : 'No role assigned'}
                         </p>
                         <p className="text-gray-800 mb-2">
                             <strong>Status:</strong>{' '}
@@ -140,7 +141,7 @@ const RoleRequests = () => {
                     </div>
                 ))}
             </div>
-            <ToastContainer position='bottom-right' />
+            <ToastContainer position="bottom-right" />
         </div>
     );
 };

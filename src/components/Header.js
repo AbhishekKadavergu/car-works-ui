@@ -29,13 +29,6 @@ const Header = () => {
           Car Works
         </Link>
         <nav className="flex space-x-4">
-          {user ? (
-            <button 
-              onClick={handleLogout} 
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition">
-              Logout
-            </button>
-          ) : (
             <>
               <Link 
                 to="/login" 
@@ -47,8 +40,13 @@ const Header = () => {
                 className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition">
                 Signup
               </Link>
+               <button 
+              onClick={handleLogout} 
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition">
+              Logout
+            </button>
             </>
-          )}
+        
         </nav>
       </div>
     </header>

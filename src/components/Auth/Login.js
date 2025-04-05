@@ -35,9 +35,14 @@ const Login = () => {
       // Optionally store user info
       localStorage.setItem('userInfo', JSON.stringify(user));
       dispatch(addUser(user));
-
-      // Navigate to dashboard or home
+     if(user!==null){
+         // Navigate to dashboard or home
       navigate('/dashboard');
+     }
+     else{
+      navigate('/login')
+     }
+      
     } catch (err) {
       setError('Invalid email or password');
     } finally {
