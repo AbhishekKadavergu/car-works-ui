@@ -37,7 +37,7 @@ const App = () => {
                     <Route path="/pcf" element={<PrivateRoute><PCFPage/></PrivateRoute>} />
 
                     {/* Public home route */}
-                    <Route path="/" element={<div>Home Component</div>} />
+                    {/* <Route path="/" element={<div>Home Component</div>} /> */}
                 </Routes>
             </main>
         </div>

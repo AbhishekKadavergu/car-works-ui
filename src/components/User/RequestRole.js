@@ -10,8 +10,7 @@ const RoleRequest = () => {
   const [selectedRole, setSelectedRole] = useState('');
   const [comment, setComment] = useState(''); // New state for the comment
   const [loading, setLoading] = useState(false);
-
-
+  
   useEffect(() => {
     fetchRoles();
   }, []);
@@ -79,7 +78,7 @@ const RoleRequest = () => {
                 required
               >
                 <option value="" disabled>Select a role</option>
-                {roles.map((role) => (
+                {roles.map((role) => ( 
                   <option key={role._id} value={role._id}>{role.name}</option>
                 ))}
               </select>
