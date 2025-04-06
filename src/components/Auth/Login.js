@@ -15,16 +15,14 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const isAuthenticated = !!localStorage.getItem('authToken');
-
   if (isAuthenticated) {
-      return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard" />;
   }
 
   const handleLogin = async (e) => {
-     e.preventDefault();
+    e.preventDefault();
     setLoading(true);  // Start the loader
     setError('');  // Clear any previous error
-
     try {
       const response = await axios.post(`${api_url}/api/auth/login`, { email, password });
       const { token, user } = response.data;
@@ -34,15 +32,16 @@ const Login = () => {
 
       // Optionally store user info
       localStorage.setItem('userInfo', JSON.stringify(user));
+      console.log(user);
       dispatch(addUser(user));
-     if(user!==null){
-         // Navigate to dashboard or home
-      navigate('/dashboard');
-     }
-     else{
-      navigate('/login')
-     }
-      
+      if (user !== null) {
+        // Navigate to dashboard or home
+        navigate('/dashboard');
+      }
+      else {
+        navigate('/login')
+      }
+
     } catch (err) {
       setError('Invalid email or password');
     } finally {
@@ -55,7 +54,6 @@ const Login = () => {
       <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-96">
         <h2 className="mb-6 text-center text-2xl">Login</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
-        
         <input
           type="email"
           placeholder="Email"
@@ -64,7 +62,6 @@ const Login = () => {
           className="border border-gray-300 p-2 mb-4 w-full"
           required
         />
-        
         <input
           type="password"
           placeholder="Password"
@@ -73,7 +70,6 @@ const Login = () => {
           className="border border-gray-300 p-2 mb-4 w-full"
           required
         />
-        
         <button
           type="submit"
           className="bg-blue-500 text-white p-2 rounded w-full"
@@ -81,7 +77,7 @@ const Login = () => {
         >
           {loading ? (
             <div className="flex items-center justify-center">
-              <ClipLoader size={20} color={"#ffffff"} loading={loading} /> 
+              <ClipLoader size={20} color={"#ffffff"} loading={loading} />
               <span className="ml-2">Logging in...</span>
             </div>
           ) : (

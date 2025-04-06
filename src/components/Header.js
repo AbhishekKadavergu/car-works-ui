@@ -8,18 +8,21 @@ const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((store) =>store.user);
-
-     useEffect(() => {
+  const user = useSelector((store) => store?.user);
+  
+  if (user === null) {
+    console.log("user not found!");
+  }
+  useEffect(() => {
     const token = localStorage.getItem('authToken');
     setIsAuthenticated(!!token);
-     }, []);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
+    console.log("Dispatching user to redux:", user);
     dispatch(removeUser());
-    setIsAuthenticated(false);
-    navigate('/login');
+    setTimeout(() => navigate('/login'), 100);
   };
 
   return (
@@ -29,24 +32,27 @@ const Header = () => {
           Car Works
         </Link>
         <nav className="flex space-x-4">
-            <>
-              <Link 
-                to="/login" 
-                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition">
-                Login
-              </Link>
-              <Link 
-                to="/register" 
-                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition">
-                Signup
-              </Link>
-               <button 
-              onClick={handleLogout} 
+          {user ? (<div>
+            <button
+              onClick={handleLogout}
               className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition">
               Logout
             </button>
-            </>
-        
+          </div>
+          ) : (
+            <div className='mx-3'>
+              <Link
+                to="/login"
+                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 mx-3 rounded transition">
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition">
+                Signup
+              </Link>
+            </div>
+          )}
         </nav>
       </div>
     </header>
@@ -54,3 +60,4 @@ const Header = () => {
 };
 
 export default Header;
+
